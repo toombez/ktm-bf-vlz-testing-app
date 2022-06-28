@@ -1,6 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './assets/index.css';
+
+import 'normalize.css';
+import './assets/scss/global.scss';
+
 import App from './components/App';
 
 import reportWebVitals from './reportWebVitals';
