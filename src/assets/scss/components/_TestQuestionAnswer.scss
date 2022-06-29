@@ -1,0 +1,15 @@
+$_gap: 2rem;
+
+.Answer {
+    display: flex;
+    align-items: center;
+
+    &__label {
+        font-size: 3.2rem;
+        padding-left: $_gap;
+    }
+    &__input {
+        width: 2rem;
+        height: 2rem;
+    }
+}

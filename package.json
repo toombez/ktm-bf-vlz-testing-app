@@ -9,7 +9,6 @@
   "bugs": {
     "url": "https://github.com/toombez/ktm-bf-vlz-testing-app/issues"
   },
-  "homepage": "https://github.com/toombez/ktm-bf-vlz-testing-app#readme",
   "license": "none",
   "private": true,
   "dependencies": {
