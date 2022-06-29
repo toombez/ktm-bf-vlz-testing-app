@@ -5,17 +5,14 @@ export class Answer implements IAnswer {
     public readonly label!: string;
     public readonly isRight: boolean = false;
 
-    private _isSelected: boolean = false;
+    public isSelected: boolean = false;
     
     constructor(answer: IAnswer) {
         Object.assign(this, answer)
     }
 
-    public get isSelected(): boolean {
-        return this._isSelected;
-    }
     public toggle() {
-        this._isSelected = !this._isSelected;
+        this.isSelected = !this.isSelected;
     }
 }
 

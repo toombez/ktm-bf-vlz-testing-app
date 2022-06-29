@@ -1,10 +1,10 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { BaseDirectory, readDir, readTextFile } from '@tauri-apps/api/fs';
-import { TestStuct } from '../components/Test';
+import { TestStruct } from '../components/Test';
 import { store } from './store';
 
 interface TestsState {
-    tests: TestStuct[];
+    tests: TestStruct[];
 }
 
 (function generate() {
@@ -13,7 +13,7 @@ interface TestsState {
         await directory
         .filter(file => file.name?.endsWith('.json'))
         .map(async file => {
-            return new TestStuct(JSON.parse(await readTextFile(await file.path)));
+            return new TestStruct(JSON.parse(await readTextFile(await file.path)));
         })
         .map(async test => {
             store.dispatch(addTest(await test));
@@ -29,7 +29,7 @@ export const testsSlice = createSlice({
     name: 'tests',
     initialState,
     reducers: {
-        addTest: (state, action: PayloadAction<TestStuct>) => {
+        addTest: (state, action: PayloadAction<TestStruct>) => {
             state.tests.push(action.payload);
         }
     }
