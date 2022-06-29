@@ -7,3 +7,8 @@ export interface IQuestion {
     label: string;
     answers: IAnswer[];
 }
+
+export interface ITest {
+    title: string;
+    questions: IQuestion[];
+}

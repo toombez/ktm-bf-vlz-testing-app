@@ -25,7 +25,9 @@ interface ITestQuestionProps {
 const TestQuestion = ({ question }: ITestQuestionProps) => {
     return (
         <div className="Question">
-            { question.label }
+            <div className="Question__title">
+                { question.label }
+            </div>
             <div className="Question__answers">
                 {question.answers.map((answer, key) => (
                     <TestQuestionAnswer
