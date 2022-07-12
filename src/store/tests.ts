@@ -11,7 +11,7 @@ const fetchTests = createAsyncThunk(
             .filter(file => !file.name?.startsWith('_'))
             .map(async (testFile) => {
                 const test = JSON.parse(await readTextFile(testFile.path));
-                return test
+                return new TestStruct(test);
             });
 
         return await Promise.all(tests);
