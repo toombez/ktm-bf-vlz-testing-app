@@ -1,40 +1,39 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { BaseDirectory, readDir, readTextFile } from '@tauri-apps/api/fs';
 import { TestStruct } from '../components/Test';
-import { store } from './store';
 
-interface TestsState {
-    tests: TestStruct[];
-}
+const fetchTests = createAsyncThunk(
+    'tests/fetchTests',
+    async () => {
+        const testsFiles = await readDir('tests', { dir: BaseDirectory.Resource, recursive: true });
+        const tests = testsFiles
+            .filter(file => file.name?.endsWith('.json'))
+            .filter(file => !file.name?.startsWith('_'))
+            .map(async (testFile) => {
+                const test = JSON.parse(await readTextFile(testFile.path));
+                return test
+            });
 
-(function generate() {
-    readDir('tests', { dir: BaseDirectory.Resource, recursive: true })
-    .then(async directory => {
-        await directory
-        .filter(file => file.name?.endsWith('.json'))
-        .map(async file => {
-            return new TestStruct(JSON.parse(await readTextFile(await file.path)));
-        })
-        .map(async test => {
-            store.dispatch(addTest(await test));
-        })
-    })
-})();
-
-const initialState: TestsState = {
-    tests: [],
-}
+        return await Promise.all(tests);
+    }
+)
 
 export const testsSlice = createSlice({
     name: 'tests',
-    initialState,
+    initialState: [] as TestStruct[],
     reducers: {
-        addTest: (state, action: PayloadAction<TestStruct>) => {
-            state.tests.push(action.payload);
+        clear: (state) => {
+            while (state.pop()) {}
         }
-    }
+    },
+    extraReducers(builder) {
+        builder.addCase(fetchTests.fulfilled, (state, action) => {
+            testsSlice.caseReducers.clear(state);
+            state.push(...action.payload);
+        })
+    },
 })
 
-export const { addTest } = testsSlice.actions;
+export { fetchTests };
 
 export default testsSlice.reducer;
