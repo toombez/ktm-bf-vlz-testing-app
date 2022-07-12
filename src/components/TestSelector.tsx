@@ -3,10 +3,10 @@ import { store } from "../store/store";
 import TestSelectorTestCard from "./TestSelectorTestCard";
 
 const TestSelector = () => {
-    const [tests, setTests] = useState(store.getState().tests.tests);
+    const [tests, setTests] = useState(store.getState().tests);
 
     store.subscribe(() => {
-        setTests(store.getState().tests.tests);
+        setTests(store.getState().tests);
     })
 
     return (
