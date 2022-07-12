@@ -3,7 +3,7 @@ import Test, { TestStruct } from "../components/Test";
 import { store } from "../store/store";
 
 const Testing = () => {
-    let tests = store.getState().tests.tests;
+    let tests = store.getState().tests;
 
     const { id } = useParams();
     const test = tests.find(test => test.id === id) as TestStruct;
