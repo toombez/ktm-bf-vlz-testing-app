@@ -1,6 +1,6 @@
 import { Route, Routes } from 'react-router-dom';
 import TestSelector from '../components/TestSelector';
-import { fetchTests } from '../store/tests';
+import { fetchTests } from '../store/reducers/tests';
 import { store } from '../store/store';
 import Testing from './Testing';
 

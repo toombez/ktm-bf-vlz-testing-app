@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { BaseDirectory, readDir, readTextFile } from '@tauri-apps/api/fs';
-import { TestStruct } from '../components/Test';
+import { TestStruct } from '../../components/Test';
 
 const fetchTests = createAsyncThunk(
     'tests/fetchTests',
