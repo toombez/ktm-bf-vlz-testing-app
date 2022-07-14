@@ -23,6 +23,9 @@ const Question = ({ question, onChange }: IQuestionProp) => {
 
     return (
         <div className={style.Question}>
+            <h2 className="style.Question__label">
+                { question.label }
+            </h2>
             {question.answers.map((answer, index) => (
                 <Answer
                     answer={answer}
