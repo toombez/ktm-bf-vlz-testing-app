@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { IAnswer, IQuestion, ITest } from "../../assets/ts/types";
 import Question from "../Question/Question";
 import style from './Test.module.scss';
@@ -15,6 +16,10 @@ const Test = ({ test }: ITestProp) => {
         selectedAnswersInQuestion.set(question, selectedAnswers);
     }
 
+    const finishTest = () => {
+        
+    }
+
     return (
         <div className={style.Test}>
             <h1 className={style.Test__title}>
@@ -29,8 +34,12 @@ const Test = ({ test }: ITestProp) => {
                     />
                 ))}
             </div>
-            {/* //TODO add finish test function */}
-            <button>Закончить тест</button>
+            <Link
+                to='/results/'
+                onClick={finishTest}
+            >
+                Закончить тест
+            </Link>
         </div>
     )
 }
