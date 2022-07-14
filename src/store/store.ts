@@ -3,7 +3,7 @@ import testsReducer from './reducers/tests';
 
 export const store = configureStore({
     reducer: {
-        tests: testsReducer,
+        testsStore: testsReducer,
     },
     middleware: (getDefaultMiddleware) => getDefaultMiddleware(),
 });

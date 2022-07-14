@@ -1,4 +1,14 @@
-import { IAnswer, IQuestion, ITest } from "../../assets/ts/types";
+import { Link } from "react-router-dom";
+import {
+    IAnswer,
+    IQuestion,
+    ITest,
+    ITestQuestionData,
+    ITestResults,
+    TestQuestionsData
+} from "../../assets/ts/types";
+import { setLastResult } from "../../store/reducers/tests";
+import { store } from "../../store/store";
 import Question from "../Question/Question";
 import style from './Test.module.scss';
 
@@ -7,12 +17,40 @@ interface ITestProp {
 }
 
 const Test = ({ test }: ITestProp) => {
-    const selectedAnswersInQuestion = new Map<IQuestion, IAnswer[]>(
-        test.questions.map(question => [question, []])
-    );
+    const testQuestionsData: TestQuestionsData = Array.from(
+        test.questions.map(question => {
+            const testQuestionData: ITestQuestionData = {
+                answers: [],
+                question
+            }
+
+            return testQuestionData;
+        })
+    )
 
     const handleChange = (question: IQuestion, selectedAnswers: IAnswer[]) => {
-        selectedAnswersInQuestion.set(question, selectedAnswers);
+        const newTestQuestionData: ITestQuestionData = {
+            answers: selectedAnswers,
+            question
+        }
+
+        const testQuestionsDataIndex = testQuestionsData
+            .findIndex(testQuestionData => testQuestionData.question === question);
+
+        testQuestionsData[testQuestionsDataIndex] = newTestQuestionData;
+    }
+
+    const finishTest = () => {
+        const result: ITestResults = {
+            test: test,
+            testQuestionsData: testQuestionsData
+        }
+
+        // /**
+        //  * TODO
+        //  * save in localstorage with redux
+        //  */
+        store.dispatch(setLastResult(result));
     }
 
     return (
@@ -29,8 +67,12 @@ const Test = ({ test }: ITestProp) => {
                     />
                 ))}
             </div>
-            {/* //TODO add finish test function */}
-            <button>Закончить тест</button>
+            <Link
+                to='/results/'
+                onClick={finishTest}
+            >
+                Закончить тест
+            </Link>
         </div>
     )
 }
