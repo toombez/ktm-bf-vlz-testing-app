@@ -5,20 +5,21 @@ import style from './Question.module.scss';
 
 interface IQuestionProp {
     question: IQuestion;
-    onChange?: (selectedAnswers: IAnswer[]) => void;
+    onChange?: (question: IQuestion, selectedAnswers: IAnswer[]) => void;
 }
 
 const Question = ({ question, onChange }: IQuestionProp) => {
     const [selectedAnswers, setSelectedAnswers] = useState<IAnswer[]>([]);
 
     const handleChange = (answer: IAnswer) => {
-        if (!selectedAnswers.includes(answer)) selectedAnswers.push(answer)
-        else setSelectedAnswers([
-            ...selectedAnswers
-                .filter(selectedAnswer => selectedAnswer !== answer)
-        ])
+        const newSelectedAnswers = 
+            selectedAnswers.includes(answer) ?
+            selectedAnswers.filter(selectedAnswer => selectedAnswer !== answer) :
+            [...selectedAnswers, answer];
 
-        if (onChange) onChange(selectedAnswers);
+        setSelectedAnswers(newSelectedAnswers);
+
+        if (onChange) onChange(question, newSelectedAnswers);
     }
 
     return (
