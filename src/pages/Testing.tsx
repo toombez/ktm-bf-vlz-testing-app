@@ -1,26 +1,28 @@
+import { useState } from "react";
 import { Link, useParams } from "react-router-dom"
-import Test from "../components/Test/Test";
 import { store } from "../store/store";
+import Test from "../components/Test/Test";
 
 const Testing = () => {
-    let tests = store.getState().tests;
-
     const { id } = useParams();
-    const test = tests[Number.parseInt(id as string)];
+    const [test, setTest] = useState(store.getState().tests.at(+(id as string)))
+
+    store.subscribe(() => {
+        setTest(store.getState().tests[+(id as string)]);
+    })
 
     return (
         <div className="Testing">
-            {/* 
-                reloading this page breaks up app,
-                cause tests has not loaded
-            */}
             <Link
                 className="Testing__backButton"
                 to='/'
             >
                 Назад
             </Link>
-            <Test test={test} />
+            {test !== undefined ?
+                <Test test={test} /> :
+                <h1>Такого теста нет</h1>
+            }
         </div>
     )
 }
