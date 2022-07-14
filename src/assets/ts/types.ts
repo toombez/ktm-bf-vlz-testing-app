@@ -13,9 +13,14 @@ export interface ITest {
     questions: IQuestion[];
 }
 
-export type SelectedAnswersMap = Map<IQuestion, IAnswer[]>;
+export interface ITestQuestionData {
+    question: IQuestion;
+    answers: IAnswer[];
+}
+
+export type TestQuestionsData = ITestQuestionData[];
 
 export interface ITestResults {
     test: ITest;
-    answers: SelectedAnswersMap;
+    testQuestionsData: TestQuestionsData;
 }

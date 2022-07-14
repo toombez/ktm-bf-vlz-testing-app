@@ -1,5 +1,12 @@
 import { Link } from "react-router-dom";
-import { IAnswer, IQuestion, ITest, ITestResults, SelectedAnswersMap } from "../../assets/ts/types";
+import {
+    IAnswer,
+    IQuestion,
+    ITest,
+    ITestQuestionData,
+    ITestResults,
+    TestQuestionsData
+} from "../../assets/ts/types";
 import Question from "../Question/Question";
 import style from './Test.module.scss';
 
@@ -8,19 +15,34 @@ interface ITestProp {
 }
 
 const Test = ({ test }: ITestProp) => {
-    const selectedAnswersInQuestion: SelectedAnswersMap = new Map(
-        test.questions.map(question => [question, []])
-    );
+    const testQuestionsData: TestQuestionsData = Array.from(
+        test.questions.map(question => {
+            const testQuestionData: ITestQuestionData = {
+                answers: [],
+                question
+            }
+
+            return testQuestionData;
+        })
+    )
 
     const handleChange = (question: IQuestion, selectedAnswers: IAnswer[]) => {
-        selectedAnswersInQuestion.set(question, selectedAnswers);
+        const newTestQuestionData: ITestQuestionData = {
+            answers: selectedAnswers,
+            question
+        }
+
+        const testQuestionsDataIndex = testQuestionsData
+            .findIndex(testQuestionData => testQuestionData.question === question);
+
+        testQuestionsData[testQuestionsDataIndex] = newTestQuestionData;
     }
 
     const finishTest = () => {
-        const results = {
-            answers: selectedAnswersInQuestion,
+        const result: ITestResults = {
             test: test,
-        } as ITestResults;
+            testQuestionsData: testQuestionsData
+        }
     }
 
     return (
