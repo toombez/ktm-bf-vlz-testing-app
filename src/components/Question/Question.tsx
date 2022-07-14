@@ -26,14 +26,16 @@ const Question = ({ question, onChange }: IQuestionProp) => {
             <h2 className="style.Question__label">
                 { question.label }
             </h2>
-            {question.answers.map((answer, index) => (
-                <Answer
-                    answer={answer}
-                    key={index}
-                    onChange={handleChange}
-                    className={style.Question__answer}
-                />
-            ))}
+            <div className="style.Question_answers">
+                {question.answers.map((answer, index) => (
+                    <Answer
+                        answer={answer}
+                        key={index}
+                        onChange={handleChange}
+                        className={style.Question__answer}
+                    />
+                ))}
+            </div>
         </div>
     )
 }
