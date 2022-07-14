@@ -5,10 +5,10 @@ import Test from "../components/Test/Test";
 
 const Testing = () => {
     const { id } = useParams();
-    const [test, setTest] = useState(store.getState().tests.at(+(id as string)))
+    const [test, setTest] = useState(store.getState().testsStore.tests.at(+(id as string)))
 
     store.subscribe(() => {
-        setTest(store.getState().tests[+(id as string)]);
+        setTest(store.getState().testsStore.tests[+(id as string)]);
     })
 
     return (

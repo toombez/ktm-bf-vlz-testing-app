@@ -1,6 +1,11 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { BaseDirectory, readDir, readTextFile } from '@tauri-apps/api/fs';
-import { ITest } from '../../assets/ts/types';
+import { ITest, ITestResults } from '../../assets/ts/types';
+
+interface ITestsStore {
+    tests: ITest[];
+    lastResult: ITestResults | undefined;
+}
 
 const fetchTests = createAsyncThunk(
     'tests/fetchTests',
@@ -20,16 +25,19 @@ const fetchTests = createAsyncThunk(
 
 export const testsSlice = createSlice({
     name: 'tests',
-    initialState: [] as ITest[],
+    initialState: {
+        lastResult: undefined,
+        tests: []
+    } as ITestsStore,
     reducers: {
         clear: (state) => {
-            while (state.pop()) {}
+            while (state.tests.pop()) {}
         }
     },
     extraReducers(builder) {
         builder.addCase(fetchTests.fulfilled, (state, action) => {
             testsSlice.caseReducers.clear(state);
-            state.push(...action.payload);
+            state.tests.push(...action.payload);
         })
     },
 })
