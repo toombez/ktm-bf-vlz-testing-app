@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { BaseDirectory, readDir, readTextFile } from '@tauri-apps/api/fs';
 import { ITest, ITestResults } from '../../assets/ts/types';
 
@@ -32,6 +32,9 @@ export const testsSlice = createSlice({
     reducers: {
         clear: (state) => {
             while (state.tests.pop()) {}
+        },
+        setLastResult: (state, action: PayloadAction<ITestResults>) => {
+            state.lastResult = action.payload;
         }
     },
     extraReducers(builder) {
@@ -41,6 +44,8 @@ export const testsSlice = createSlice({
         })
     },
 })
+
+export const { setLastResult } = testsSlice.actions;
 
 export { fetchTests };
 

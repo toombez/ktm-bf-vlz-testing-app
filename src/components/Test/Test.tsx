@@ -7,6 +7,8 @@ import {
     ITestResults,
     TestQuestionsData
 } from "../../assets/ts/types";
+import { setLastResult } from "../../store/reducers/tests";
+import { store } from "../../store/store";
 import Question from "../Question/Question";
 import style from './Test.module.scss';
 
@@ -43,6 +45,12 @@ const Test = ({ test }: ITestProp) => {
             test: test,
             testQuestionsData: testQuestionsData
         }
+
+        // /**
+        //  * TODO
+        //  * save in localstorage with redux
+        //  */
+        store.dispatch(setLastResult(result));
     }
 
     return (
