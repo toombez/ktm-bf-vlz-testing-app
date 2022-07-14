@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { BaseDirectory, readDir, readTextFile } from '@tauri-apps/api/fs';
-import { TestStruct } from '../../components/Test';
+import { ITest } from '../../assets/ts/types';
 
 const fetchTests = createAsyncThunk(
     'tests/fetchTests',
@@ -11,7 +11,7 @@ const fetchTests = createAsyncThunk(
             .filter(file => !file.name?.startsWith('_'))
             .map(async (testFile) => {
                 const test = JSON.parse(await readTextFile(testFile.path));
-                return new TestStruct(test);
+                return test as ITest;
             });
 
         return await Promise.all(tests);
@@ -20,7 +20,7 @@ const fetchTests = createAsyncThunk(
 
 export const testsSlice = createSlice({
     name: 'tests',
-    initialState: [] as TestStruct[],
+    initialState: [] as ITest[],
     reducers: {
         clear: (state) => {
             while (state.pop()) {}

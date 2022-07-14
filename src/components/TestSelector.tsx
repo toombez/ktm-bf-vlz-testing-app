@@ -15,10 +15,11 @@ const TestSelector = () => {
                 Выберете тести
             </div>
             <div className="TestSelector__tests">
-                { tests.map((test, key) =>
+                { tests.map((test, index) =>
                     <TestSelectorTestCard
                         test={test}
-                        key={key}
+                        index={index}
+                        key={index}
                     />
                 ) }
             </div>

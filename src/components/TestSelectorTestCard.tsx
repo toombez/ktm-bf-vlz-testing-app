@@ -1,14 +1,15 @@
 import { Link } from "react-router-dom";
-import { TestStruct } from "./Test"
+import { ITest } from "../assets/ts/types";
 
 interface ITestSelectorTestCardProps {
-    test: TestStruct;
+    test: ITest;
+    index: number;
 }
 
-const TestSelectorTestCard = ({ test }: ITestSelectorTestCardProps) => {
+const TestSelectorTestCard = ({ test, index }: ITestSelectorTestCardProps) => {
     return (
         <Link
-            to={`/test/${test.id}`}
+            to={`/test/${index}`}
             className="TestSelectorTestCard"
         >
             <div className="TestSelectorTestCard__title">
@@ -19,7 +20,7 @@ const TestSelectorTestCard = ({ test }: ITestSelectorTestCardProps) => {
                     Вопросов:
                 </span>
                 <span className="TestSelectorTestCard__questionCountValue">
-                    { test.QuestionCount }
+                    { test.questions.length }
                 </span>
             </div>
         </Link>
