@@ -12,3 +12,10 @@ export interface ITest {
     title: string;
     questions: IQuestion[];
 }
+
+export type SelectedAnswersMap = Map<IQuestion, IAnswer[]>;
+
+export interface ITestResults {
+    test: ITest;
+    answers: SelectedAnswersMap;
+}

@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { IAnswer, IQuestion, ITest } from "../../assets/ts/types";
+import { IAnswer, IQuestion, ITest, ITestResults, SelectedAnswersMap } from "../../assets/ts/types";
 import Question from "../Question/Question";
 import style from './Test.module.scss';
 
@@ -8,7 +8,7 @@ interface ITestProp {
 }
 
 const Test = ({ test }: ITestProp) => {
-    const selectedAnswersInQuestion = new Map<IQuestion, IAnswer[]>(
+    const selectedAnswersInQuestion: SelectedAnswersMap = new Map(
         test.questions.map(question => [question, []])
     );
 
@@ -17,7 +17,10 @@ const Test = ({ test }: ITestProp) => {
     }
 
     const finishTest = () => {
-        
+        const results = {
+            answers: selectedAnswersInQuestion,
+            test: test,
+        } as ITestResults;
     }
 
     return (
