@@ -1,12 +1,12 @@
 import { Link, useParams } from "react-router-dom"
-import Test, { TestStruct } from "../components/Test";
+import Test from "../components/Test/Test";
 import { store } from "../store/store";
 
 const Testing = () => {
     let tests = store.getState().tests;
 
     const { id } = useParams();
-    const test = tests.find(test => test.id === id) as TestStruct;
+    const test = tests[Number.parseInt(id as string)];
 
     return (
         <div className="Testing">
@@ -17,7 +17,6 @@ const Testing = () => {
             <Link
                 className="Testing__backButton"
                 to='/'
-                onClick={() => tests.map(test => test.clear())}
             >
                 Назад
             </Link>

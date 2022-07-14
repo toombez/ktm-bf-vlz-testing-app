@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { store } from "../store/store";
+import Question from "./Question/Question";
+import Test from "./Test/Test";
 import TestSelectorTestCard from "./TestSelectorTestCard";
 
 const TestSelector = () => {
@@ -15,10 +17,11 @@ const TestSelector = () => {
                 Выберете тести
             </div>
             <div className="TestSelector__tests">
-                { tests.map((test, key) =>
+                { tests.map((test, index) =>
                     <TestSelectorTestCard
                         test={test}
-                        key={key}
+                        index={index}
+                        key={index}
                     />
                 ) }
             </div>
