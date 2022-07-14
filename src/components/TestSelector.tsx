@@ -1,7 +1,5 @@
 import { useState } from "react";
 import { store } from "../store/store";
-import Question from "./Question/Question";
-import Test from "./Test/Test";
 import TestSelectorTestCard from "./TestSelectorTestCard";
 
 const TestSelector = () => {
