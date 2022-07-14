@@ -5,8 +5,6 @@ import Testing from './pages/Testing';
 import SelectTest from './pages/SelectTest'
 
 function App() {
-    store.dispatch(fetchTests())
-
     return (
         <div className="App">
             <Routes>
